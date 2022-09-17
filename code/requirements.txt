@@ -1,4 +1,5 @@
 google-cloud-vision
-pylint
+google-cloud-storage==1.40.0
 pytest
 pyclean
+pylint
