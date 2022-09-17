@@ -1,4 +1,6 @@
 from google.cloud import vision
+from google.cloud import storage
+
 import json
 
 def main(event, context):
@@ -45,8 +47,30 @@ def main(event, context):
     }
     
     print(json.dumps(emotions))
+    
+    bucket_name = 'soa-projects-database'
+    database_filename = 'data.json'
+    
+    bucket = storage.Client().get_bucket(bucket_name)
+    
+    database_json = []
+
+    # read the database
+    
+    try:
+        blob = bucket.get_blob(database_filename)
+        database_json = json.loads(blob.download_as_string())
+    except:
+        database_json = []
+        
+    # write in database
+    
+    database_json.append(emotions)
+    
+    blob = bucket.blob(database_filename)
+    
+    # take the upload outside of the for-loop otherwise you keep overwriting the whole file
+    # blob.upload_from_string(data=json.dumps(emotions), content_type='application/json') 
+    blob.upload_from_string(data=json.dumps(database_json), content_type='application/json') 
 
     return json.dumps(emotions)
-
-
-

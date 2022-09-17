@@ -42,6 +42,12 @@ resource "google_storage_bucket" "images" {
   force_destroy = true
 }
 
+resource "google_storage_bucket" "database" {
+  name          = "${var.project_id}-database"
+  location      = var.region
+  force_destroy = true
+}
+
 # ============================================================
 # resource: code
 # ============================================================
@@ -108,6 +114,7 @@ resource "google_cloudfunctions_function" "function" {
   depends_on = [
     google_storage_bucket_object.zip,
     google_storage_bucket.function_bucket,
-    google_storage_bucket.images
+    google_storage_bucket.images,
+    google_storage_bucket.database
   ]
 }
