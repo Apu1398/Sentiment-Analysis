@@ -1,0 +1,17 @@
+steps:
+# - name: 'docker.io/library/python:3.10'
+#   id: Tests
+#   entrypoint: /bin/sh
+#   # Run pip install and pytest in the same build step
+#   # (pip packages won't be preserved in future steps!)
+#   args: [-c, 'pip install -r requirements.txt && pytest']
+#   dir: ''
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: terraform_init
+  args: ['terraform init']
+  dir: ''
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: terraform_apply
+  args: ['terraform apply -auto-approve']
+  dir: ''
