@@ -1,15 +1,16 @@
 steps:
+- name: 'docker.io/library/python:3.10'
+  id: Code-Check
+  entrypoint: /bin/sh
+  args: [-c, 'pip install -r requirements.txt && pylint main.py']
+  dir: ''
+- name: 'docker.io/library/python:3.10'
+  id: Tests
+  entrypoint: /bin/sh
+  args: [-c, 'pip install -r requirements.txt && pytest']
+  dir: ''
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Deploy
   args: ['functions', 'deploy', 'myFunction', '--runtime', 'python310', '--entry-point', 'main', 
   '--trigger-event', 'google.storage.object.finalize', '--trigger-resource', 'soa-projects-images']
   dir: ''
-
-# gcloud functions deploy python-http \
-# --gen2 \
-# --runtime=python310 \
-# --region=us-central1 \
-# --source=. \
-# --entry-point=main \
-# --trigger-http \
-# --allow-unauthenticated

@@ -1,1 +1,3 @@
 google-cloud-vision
+pylint
+pytest
