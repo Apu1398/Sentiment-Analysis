@@ -13,4 +13,4 @@ steps:
   id: Deploy
   args: ['functions', 'deploy', 'myFunction', '--runtime', 'python310', '--entry-point', 'main', 
   '--trigger-event', 'google.storage.object.finalize', '--trigger-resource', 'soa-projects-images']
-  dir: ''
+  dir: './code'
