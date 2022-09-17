@@ -1,5 +1,5 @@
-import main
 import json
+from main import main
 
 expectedResult = {"Angry": 'VERY_LIKELY', "Joy": 'VERY_UNLIKELY', "Sorrow": 'VERY_UNLIKELY', "Surprise": 'UNLIKELY', "headwear": 'VERY_UNLIKELY' }
 
