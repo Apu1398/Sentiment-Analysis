@@ -7,7 +7,7 @@ steps:
 - name: 'docker.io/library/python:3.10'
   id: Tests
   entrypoint: /bin/sh
-  args: [-c, 'pip install -r requirements.txt && pytest -p no:cacheprovider && pyclean']
+  args: [-c, 'pip install -r requirements.txt && pytest -p no:cacheprovider && pyclean .']
   dir: './code'
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Deploy
