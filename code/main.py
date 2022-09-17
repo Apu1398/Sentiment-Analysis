@@ -1,7 +1,10 @@
+import json
 from google.cloud import vision
 from google.cloud import storage
 
-import json
+'''
+Main Function
+'''
 
 def main(event, context):
     # print("event: ", event)
@@ -17,10 +20,9 @@ def main(event, context):
     image = vision.Image()
 
     # Names of likelihood from google.cloud.vision.enums
-    likelihood = ('UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE', 'LIKELY', 'VERY_LIKELY')    
-
+    likelihood = ('UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE', 'LIKELY', 'VERY_LIKELY')
     #image.source.image_uri = '%s/%s' % (uri_base, pic)
-    image.source.image_uri = '%s/%s' % (uri_base,pic)
+    image.source.image_uri = f'{uri_base}/{pic}'
     response = client.face_detection(image=image)
     faces = response.face_annotations
 
@@ -65,12 +67,9 @@ def main(event, context):
         
     # write in database
     
-    database_json.append(emotions)
-    
-    blob = bucket.blob(database_filename)
-    
+    database_json.append(emotions)    
+    blob = bucket.blob(database_filename)    
     # take the upload outside of the for-loop otherwise you keep overwriting the whole file
     # blob.upload_from_string(data=json.dumps(emotions), content_type='application/json') 
     blob.upload_from_string(data=json.dumps(database_json), content_type='application/json') 
-
     return json.dumps(emotions)
