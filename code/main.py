@@ -1,9 +1,11 @@
 """
-Main function
+Main imports
 """
 import json
 from google.cloud import vision
-
+"""
+Main function
+"""
 def main(event, context):
     # print("event: ", event)
     # print("context: ", context)
@@ -14,9 +16,9 @@ def main(event, context):
     client = vision.ImageAnnotatorClient()
     image = vision.Image()
     # Names of likelihood from google.cloud.vision.enums
-    likelihood = ('UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE', 'LIKELY', 'VERY_LIKELY')    
+    likelihood = ('UNKNOWN', 'VERY_UNLIKELY', 'UNLIKELY', 'POSSIBLE', 'LIKELY', 'VERY_LIKELY')
     #image.source.image_uri = '%s/%s' % (uri_base, pic)
-    image.source.image_uri = '%s/%s' % (uri_base,pic)
+    image.source.image_uri = f'{uri_base}/{pic}'
     response = client.face_detection(image=image)
     faces = response.face_annotations
     print('File:', pic)
@@ -33,6 +35,6 @@ def main(event, context):
         "Surprise":emotions5,
         "headwear":emotions6,
     }
-    
     print(json.dumps(emotions))
     return json.dumps(emotions)
+    
