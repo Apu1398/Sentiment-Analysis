@@ -89,7 +89,7 @@ terraform {
 # Create the Cloud function triggered by a `Finalize` event on the bucket
 resource "google_cloudfunctions_function" "function" {
   name    = "myFunction"
-  runtime = "python37" # of course changeable
+  runtime = "python310" # of course changeable
 
   # Get the source code of the cloud function as a Zip compression
   source_archive_bucket = google_storage_bucket.function_bucket.name

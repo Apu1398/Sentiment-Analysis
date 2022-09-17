@@ -1,16 +1,15 @@
 from google.cloud import vision
 import json
 
-
 def main(event, context):
     # print("event: ", event)
     # print("context: ", context)
     print("An image was uploaded")
     
     
-    print("URL: https://storage.cloud.google.com/soa-2022-360315-images/" + event["name"])
+    print("URL: gs://soa-projects-images/" + event["name"])
     pic = event["name"]
-    uri_base = 'https://storage.cloud.google.com/soa-2022-360315-images/'
+    uri_base = 'gs://soa-projects-images/'
 
     client = vision.ImageAnnotatorClient()
     image = vision.Image()
@@ -44,6 +43,8 @@ def main(event, context):
         "Surprise":emotions5,
         "headwear":emotions6,
     }
+    
+    print(json.dumps(emotions))
 
     return json.dumps(emotions)
 
