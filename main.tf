@@ -4,7 +4,7 @@
 variable "project_id" {
   # change it for yours
   # default = "YOUR_PROJECT_ID"
-  default = "soa-2022-360315"
+  default = "soa-projects"
 }
 
 variable "region" {
@@ -33,10 +33,17 @@ provider "google" {
 resource "google_storage_bucket" "function_bucket" {
   name     = "${var.project_id}-function_bucket"
   location = var.region
+  force_destroy = true
 }
 
 resource "google_storage_bucket" "images" {
   name          = "${var.project_id}-images"
+  location      = var.region
+  force_destroy = true
+}
+
+resource "google_storage_bucket" "database" {
+  name          = "${var.project_id}-database"
   location      = var.region
   force_destroy = true
 }
@@ -88,7 +95,7 @@ terraform {
 # Create the Cloud function triggered by a `Finalize` event on the bucket
 resource "google_cloudfunctions_function" "function" {
   name    = "myFunction"
-  runtime = "python37" # of course changeable
+  runtime = "python310" # of course changeable
 
   # Get the source code of the cloud function as a Zip compression
   source_archive_bucket = google_storage_bucket.function_bucket.name
@@ -107,7 +114,7 @@ resource "google_cloudfunctions_function" "function" {
   depends_on = [
     google_storage_bucket_object.zip,
     google_storage_bucket.function_bucket,
-    google_storage_bucket.images
+    google_storage_bucket.images,
+    google_storage_bucket.database
   ]
 }
-
