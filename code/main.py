@@ -33,6 +33,9 @@ def main(event, context):
         "Surprise":emotions5,
         "headwear":emotions6,
     }
+    
+    print("Analizando imagencita")
+    
     print(json.dumps(emotions))
     bucket_name = 'soa-projects-database'
     database_filename = 'data.json'
