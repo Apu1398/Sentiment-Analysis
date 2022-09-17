@@ -4,7 +4,7 @@
 variable "project_id" {
   # change it for yours
   # default = "YOUR_PROJECT_ID"
-  default = "soa-2022-360315"
+  default = "soa-projects"
 }
 
 variable "region" {
@@ -33,6 +33,7 @@ provider "google" {
 resource "google_storage_bucket" "function_bucket" {
   name     = "${var.project_id}-function_bucket"
   location = var.region
+  force_destroy = true
 }
 
 resource "google_storage_bucket" "images" {
@@ -110,4 +111,3 @@ resource "google_cloudfunctions_function" "function" {
     google_storage_bucket.images
   ]
 }
-
