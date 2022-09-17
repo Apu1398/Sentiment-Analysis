@@ -1,7 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Deploy
-  args: ['functions', 'deploy', 'myFunction', '--trigger-http', '--runtime', 'python310', '--entry-point', 'main', 
+  args: ['functions', 'deploy', 'myFunction', '--runtime', 'python310', '--entry-point', 'main', 
   '--trigger-event', 'google.storage.object.finalize', '--trigger-resource', 'soa-projects-images']
   dir: ''
 
