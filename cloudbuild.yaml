@@ -1,18 +1,16 @@
 steps:
-- name: 'gcr.io/soa-2022-360315/terraform'
-  id: terraform_init
-  args:
-    - init
+- name: 'hashicorp/terraform:1.0.0'
+  id: 'terraform_init'
+  entrypoint: 'sh'
+  args: [-c, 'terraform init']
 
-- name: 'gcr.io/soa-2022-360315/terraform'
-  id: terraform_plan
-  args:
-    - plan 
-    - -auto-approve
+- name: 'hashicorp/terraform:1.0.0'
+  id: 'terraform_plan'
+  entrypoint: 'sh'
+  args: [-c, 'terraform plan -auto-approve']
 
-- name: 'gcr.io/soa-2022-360315/terraform'
-  id: terraform_apply
-  args:
-    - apply 
-    - -auto-approve
+- name: 'hashicorp/terraform:1.0.0'
+  id: 'terraform_apply'
+  entrypoint: 'sh'
+  args: [-c, 'terraform apply -auto-approve']
 
