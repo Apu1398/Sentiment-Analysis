@@ -1,16 +1,15 @@
 steps:
-- name: 'hashicorp/terraform:1.0.0'
-  id: 'terraform_init'
-  entrypoint: 'sh'
-  args: [-c, 'terraform init']
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Deploy
+  args: ['functions', 'deploy', 'myFunction', '--runtime', 'python310', '--entry-point', 'main', 
+  '--trigger-event', 'google.storage.object.finalize', '--trigger-resource', 'soa-projects-images']
+  dir: ''
 
-- name: 'hashicorp/terraform:1.0.0'
-  id: 'terraform_plan'
-  entrypoint: 'sh'
-  args: [-c, 'terraform plan']
-
-- name: 'hashicorp/terraform:1.0.0'
-  id: 'terraform_apply'
-  entrypoint: 'sh'
-  args: [-c, 'terraform apply -auto-approve']
-
+# gcloud functions deploy python-http \
+# --gen2 \
+# --runtime=python310 \
+# --region=us-central1 \
+# --source=. \
+# --entry-point=main \
+# --trigger-http \
+# --allow-unauthenticated
