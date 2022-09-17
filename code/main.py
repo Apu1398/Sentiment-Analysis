@@ -4,9 +4,7 @@ import json
 def main(event, context):
     # print("event: ", event)
     # print("context: ", context)
-    print("An image was uploaded")
-    
-    
+    print("An image was uploaded")    
     print("URL: gs://soa-projects-images/" + event["name"])
     pic = event["name"]
     uri_base = 'gs://soa-projects-images/'
