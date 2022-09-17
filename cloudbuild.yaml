@@ -9,10 +9,13 @@ steps:
   entrypoint: /bin/sh
   args: [-c, 'pip install -r requirements.txt && pytest']
   dir: './code'
-- name: 'docker.io/library/python:3.10'
-  id: cleaning-up
-  args: [-c, rm -r .pytest_cache && rm -r __pycache]
-  dir: './code'
+- name: python
+  id: Clean-up 
+  script: |
+    #!/usr/bin/env python
+    import os
+    os.remove(".pytest_cache")
+    os.remove("__pycache")
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Deploy
   args: ['functions', 'deploy', 'myFunction', '--runtime', 'python310', '--entry-point', 'main', 
