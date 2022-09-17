@@ -2,13 +2,13 @@ steps:
 - name: 'docker.io/library/python:3.10'
   id: Code-Check
   entrypoint: /bin/sh
-  args: [-c, 'pip install -r requirements.txt && pylint main.py']
-  dir: '/code/'
+  args: [-c, 'pip install -r code/requirements.txt && pylint main.py']
+  dir: ''
 - name: 'docker.io/library/python:3.10'
   id: Tests
   entrypoint: /bin/sh
-  args: [-c, 'pip install -r requirements.txt && pytest']
-  dir: '/code/'
+  args: [-c, 'pip install -r code/requirements.txt && pytest']
+  dir: ''
 - name: 'gcr.io/cloud-builders/gcloud'
   id: Deploy
   args: ['functions', 'deploy', 'myFunction', '--runtime', 'python310', '--entry-point', 'main', 
