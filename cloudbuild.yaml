@@ -7,7 +7,7 @@ steps:
 - name: 'hashicorp/terraform:1.0.0'
   id: 'terraform_plan'
   entrypoint: 'sh'
-  args: [-c, 'terraform plan -auto-approve']
+  args: [-c, 'terraform plan']
 
 - name: 'hashicorp/terraform:1.0.0'
   id: 'terraform_apply'
